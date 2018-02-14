@@ -1,0 +1,14 @@
+.boite {margin-left:auto;margin-right:auto;width:960px}
+placement_1,.placement_2,.placement_3,.placement_4,.placement_5,.placement_6,.placement_7,.placement_8,.placement_9{display:inline;float:left;position:relative;margin-left:5px;margin-right:5px;}
+.boite .placement_1{width:900px;}
+.boite .placement_2{width:150px;}
+.boite .placement_3{width:190px;}
+.boite .placement_4{width:250px;}
+.boite .placement_5{width:270px;}
+.boite .placement_6{width:590px;}
+.boite .placement_8{width:870px;}
+.boite .placement_9{width:960px;}
+.boite .prefix_1{padding-left:40px;}
+.clearfix{display:block;}
+
+

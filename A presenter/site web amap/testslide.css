@@ -1,0 +1,483 @@
+ <!--SLIDES grace au site https://www.creativejuiz.fr/blog/tutoriels/css3-creer-slideshow-automatique-controlable-transition-->
+
+body {
+		padding-top: 3em;
+	}
+	/*
+	 * Part 1
+	 */
+	 
+	#slideshow {  
+        position: relative;  
+        width: 800px;  
+        height: 400px;  
+        padding: 15px;  
+        margin: 0 auto 2em;  
+        border: 1px solid #ddd;  
+        background: #FFF;  
+        /* CSS3 effects */  
+        background: -webkit-linear-gradient(#FFF, #FFF 20%, #EEE 80%, #DDD);  
+        background: -moz-linear-gradient(#FFF, #FFF 20%, #EEE 80%, #DDD);  
+        border-radius: 2px 2px 2px 2px;  
+        box-shadow: 0 0 3px rgba(0,0,0, 0.2);  
+    }  
+       
+    /* avanced box-shadow 
+     * tutorial @ 
+     * http://www.creativejuiz.fr/blog/les-tutoriels/ombre-avancees-avec-css3-et-box-shadow 
+    */  
+    #slideshow:before,  
+    #slideshow:after {  
+        position: absolute;  
+        bottom:16px;  
+        z-index: -10;  
+        width: 50%;  
+        height: 20px;  
+        content: " ";  
+        background: rgba(0,0,0,0.1);  
+        border-radius: 50%;  
+        box-shadow: 0 0 3px rgba(0,0,0, 0.4), 0 20px 10px rgba(0,0,0, 0.7);  
+    }  
+    #slideshow:before {  
+        left:0;  
+        -webkit-transform: rotate(-4deg);  
+        -moz-transform: rotate(-4deg);  
+        transform: rotate(-4deg);  
+    }  
+    #slideshow:after {  
+        right:0;  
+        -webkit-transform: rotate(4deg);  
+        -moz-transform: rotate(4deg);  
+        transform: rotate(4deg);  
+    } 
+	
+	/*
+	 * Part 2
+	 */
+	
+	
+	/* gestion des dimensions et débordement du conteneur */
+	#slideshow .container {
+		position:relative;
+		width: 800px;
+		height: 400px;
+		overflow: hidden;
+	}
+	
+	/* on prévoit un petit espace gris pour la timeline */
+	#slideshow .container:after {
+		position:absolute;
+		bottom: 0; left:0;
+		content: " ";
+		width: 100%;
+		height: 1px;
+		background: #999;
+	}
+	/* 
+	   le conteneur des slides
+	   en largeur il fait 100% x le nombre de slide
+	*/
+	#slideshow .slider {
+		position: absolute;
+		left:0; top:0;
+		width: 400%;
+		height: 400px;
+	}
+	
+	/* annulation des marges sur figure */
+	#slideshow figure {
+		position:relative;
+		display:inline-block;
+		padding:0; margin:0;
+	}
+	/* petit effet de vignette sur les images */
+	#slideshow figure:after {
+		position: absolute;
+		display:block;
+		content: " ";
+		top:0; left:0;
+		width: 100%; height: 100%;
+		-moz-box-shadow: 0 0 65px rgba(0,0,0, 0.5) inset;
+	}
+	
+	/*
+	 * Part 3	
+	 */
+	
+	/* styles de nos légendes */
+	#slideshow figcaption {
+		position:absolute;
+		padding: 20px 20px; margin:0;
+		left:0; right:0; bottom: 5px;
+		text-align:center;
+		letter-spacing: 0.05em;
+		word-spacing: 0.05em;
+		font-family: Georgia, Times, serif;
+		background: #fff;
+		background: rgba(255,255,255,0.7);
+		border-top: 1px solid rgb(225,225,225);
+		color: #555;
+		text-shadow: -1px -1px 0 rgba(255,255,255,0.3);
+	}
+	
+	
+	
+	/* SLIDER */
+	
+	
+	
+	/*
+	 * Part 4
+	 */
+	 
+	@-moz-keyframes slider {
+		0%, 20%, 100%	{ left: 0 }
+		25%, 45%		{ left: -100% }
+		50%, 70%		{ left: -200% }
+		75%, 95%		{ left: -300% }
+	}
+	@keyframes slider {
+		0%, 20%, 100%	{ left: 0 }
+		25%, 45%		{ left: -100% }
+		50%, 70%		{ left: -200% }
+		75%, 95%		{ left: -300% }
+	}
+	
+	/* 
+	 * Part 5
+	 */
+	#slideshow .slider {
+		-moz-animation: slider 32s infinite;
+		animation: slider 32s infinite;
+	}
+	
+	
+	
+	/* TIMELINE */
+	
+	
+	
+	/*
+	 * Part 6
+	 */
+	#timeline {
+		position: absolute;
+		background: #999;
+		bottom: 15px;
+		left: 15px;
+		height: 1px;
+		background: rgb(214,98,13);
+		background: rgba(214,98,13,.8);
+		width: 0;
+		
+		-moz-animation: timeliner 32s infinite;
+		animation: timeliner 32s infinite;
+	}
+	/*
+	 * Part 7
+	 */
+	@-moz-keyframes timeliner {
+		0%, 25%, 50%, 75%, 100%	{ width: 0;		}
+		20%, 45%, 70%, 90%		{ width: 640px;	}
+	}
+	@keyframes timeliner {
+		0%, 25%, 50%, 75%, 100%	{ width: 0;		}
+		20%, 45%, 70%, 90%		{ width: 640px;	}
+	}
+	
+	
+	/* CAPTION */
+	
+	/*
+	 * Part 8
+	 */
+	@-moz-keyframes figcaptionner {  
+        0%, 25%, 50%, 75%, 100%                     { bottom: -55px;    }  
+        5%, 20%, 30%, 45%, 55%, 70%, 80%, 95%       { bottom: 5px;      }  
+    }
+    @keyframes figcaptionner {  
+        0%, 25%, 50%, 75%, 100%                     { bottom: -55px;    }  
+        5%, 20%, 30%, 45%, 55%, 70%, 80%, 95%       { bottom: 5px;      }  
+    }
+
+	/*
+	 * Part 9
+	 */
+	#slideshow figcaption {  
+		-moz-animation: figcaptionner 32s infinite;  
+		animation: figcaptionner 32s infinite;  
+	} 
+	
+	
+	
+	/*  PLAY / PAUSE btns */
+	
+	/*
+	 * Part 10
+	 */
+	 
+	 .play_commands {
+		/* positionnement en haut à droite */ 
+		position: absolute;
+		top: 25px; right: 25px;
+		z-index: 10;
+		/* dimensionnement des icônes */
+		width: 22px;
+		height: 22px;
+		text-indent: -9999px;
+		border:0 none;
+		/* placez l'opacité à 1 si vous souhaitez voir les commandes */
+		opacity: 0;
+		/* préparation de transition sur opacicty et right */
+		-moz-transition: opacity 1s, right 1s;
+		transition: opacity 1s, right 1s;
+	}
+	/* on décale play légèrement sur la gauche */
+	.play { right: 55px; cursor: default; }
+
+	/* création de l'icône pause avec 2 pseudos éléments */
+	.pause:after,
+	.pause:before {
+		position: absolute;
+		display: block;
+		content: " ";
+		top:0;
+		width:38%;
+		height: 22px;
+		background: #fff;
+		background: rgba(255,255,255,0.5);
+	}
+	.pause:after { right:0; }
+	.pause:before {	left:0; }
+
+	/* création de l'icône play avec des bordures */
+	.play {
+		width: 1px; 
+		height: 1px; 
+		/* les transparentes forment la flèche */
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+		border-left: 20px solid #fff; 
+		border-left: 20px solid rgba(255,255,255,0.5); 
+		/* renseignez 1 pour voir l'icône de suite */
+		opacity: 0;
+	}
+	
+	/* apparition du bouton pause */
+	#slideshow:hover .pause,
+	.play_commands:focus {
+		opacity: 1;
+		outline: none;
+	}
+	
+	
+	/*
+	 * Part 11
+	 */
+	
+	.sl_command:target ~ #slideshow .slider,  
+    .sl_command:target ~ #slideshow figcaption,  
+    .sl_command:target ~ #slideshow #timeline,
+	.sl_command:target ~ #slideshow .dots_commands li:first-child a:after {  
+        -moz-animation-play-state: paused;  
+        animation-play-state: paused;  
+    }
+	
+	#sl_play:target ~ #slideshow .slider,
+	#sl_play:target ~ #slideshow figcaption,
+	#sl_play:target ~ #slideshow #timeline,
+	#sl_play:target ~ #slideshow .dots_commands li:first-child a:after {
+		-moz-animation-play-state: running;
+		animation-play-state: running;
+	}
+	
+	.sl_command:target ~ #slideshow .pause 		{ opacity:0; }
+	#sl_play:target ~ #slideshow:hover .pause,
+	#sl_play:target ~ #slideshow .pause:focus 	{ opacity:1; }
+	.sl_command:target ~ #slideshow .play 		{ opacity:1; right: 25px; cursor: pointer; }
+	#sl_play:target ~ #slideshow .play 			{ opacity:0; right: 55px; cursor: default; }
+	
+	
+	
+	/* Boutons flèches */
+	
+	/*
+	 * Part 12
+	 */
+	 
+	#slideshow .commands {  
+		position: absolute;  
+		top: 45%;  
+		padding: 5px 13px;  
+		border-bottom:0;  
+		font-size: 1.3em;  
+		color: #aaa;  
+		text-decoration:none;  
+		background-color: #eee;  
+		background-image: -moz-linear-gradient(#fff,#ddd);  
+		background-image: linear-gradient(#fff,#ddd);  
+		text-shadow: 0 0 1px #aaa;  
+		border-radius: 50%;  
+		box-shadow: 1px 1px 2px rgba(0,0,0,0.2);  
+	}  
+	   
+	#slideshow .prev { left: -48px; }  
+	#slideshow .next { right: -48px; }  
+	   
+	#slideshow .commands { display:none; }  
+	#slideshow .commands1 { display: block; }
+	
+	
+	/*
+	 * Part 13
+	 */
+	 
+	#slideshow .c_slider {
+		position: absolute;
+		left:0; top:0;
+		width: 400%;
+		height: 400px;
+		background: url(img/dummy-800x400-1.jpg) 0 0 no-repeat, url(img/dummy-800x400-2.jpg) 800px 0 no-repeat, url(img/dummy-640x310-3.jpg) 1280px 0 no-repeat, url(img/dummy-800x400-4.jpg) 1920px 0 no-repeat;
+		-moz-transition: background 1s;
+		transition: background 1s;
+	}
+	
+	/*
+	 * Part 13"
+	 */
+	 
+	.sl_i:target ~ #slideshow .slider									{ visibility: hidden }
+	.sl_i:target ~ #slideshow .dots_commands li:first-child a:after		{ display:none; }
+	.sl_i:target ~ #slideshow .dots_commands li:first-child a:before	{ display:block; }
+
+	#sl_i1:target ~ #slideshow .commands								{ display: none; }
+	#sl_i1:target ~ #slideshow .commands1								{ display: block; }
+	#sl_i1:target ~ #slideshow .c_slider								{ background-position: 0 0, 640px 0, 1280px 0, 1920px 0; }
+	#sl_i1:target ~ #slideshow .dots_commands li:first-child a:before	{ left:0; }
+
+	#sl_i2:target ~ #slideshow .commands								{ display: none; }
+	#sl_i2:target ~ #slideshow .commands2								{ display: block; }
+	#sl_i2:target ~ #slideshow .c_slider								{ background-position: -800px 0, 0 0, 800px 0, 1280px 0; }
+	#sl_i2:target ~ #slideshow .dots_commands li:first-child a:before	{ left:18px; }
+
+	#sl_i3:target ~ #slideshow .commands								{ display: none; }
+	#sl_i3:target ~ #slideshow .commands3								{ display: block; }
+	#sl_i3:target ~ #slideshow .c_slider								{ background-position: -1280px 0, -800px 0, 0 0, 800px 0; }
+	#sl_i3:target ~ #slideshow .dots_commands li:first-child a:before	{ left:36px; }
+
+	#sl_i4:target ~ #slideshow .commands								{ display: none; }
+	#sl_i4:target ~ #slideshow .commands4								{ display: block; }
+	#sl_i4:target ~ #slideshow .c_slider								{ background-position: -1920px 0, -1280px 0, -800px 0, 0 0; }
+	#sl_i4:target ~ #slideshow .dots_commands li:first-child a:before	{ left:54px; }
+	
+	
+	/* PAGINATION */
+	
+	/*
+	 * Part 14
+	 */
+	 
+	.dots_commands  {  
+        padding:0;
+		margin: 35px 0 0 0;
+        text-align: center;
+    }  
+    .dots_commands li {  
+        display: inline;  
+        padding:0; margin:0;  
+    }  
+    .dots_commands a {  
+        position: relative;  
+        display: inline-block;  
+        height:8px; width: 8px;  
+        margin: 0 5px;  
+        text-indent: -9999px;  
+        background: #fff;  
+        border-radius: 50%;  
+        box-shadow: 0 1px 2px rgba(0,0,0,0.55) inset;  
+    }
+	.dots_commands li:first-child a {
+		z-index:25;
+	}
+    .dots_commands a:focus {
+		outline: none;
+		background: orange;
+	}  
+	
+	
+	/*
+	 * Part 15
+	 */
+	@-moz-keyframes dotser {
+		0%, 100% 	{ opacity: 1; left: 0; 		}
+		
+		20%			{ opacity: 1; left: 0;		}
+		22%			{ opacity: 0; left: 0;		}
+		23%			{ opacity: 0; left: 18px;	}
+		25%			{ opacity: 1; left: 18px;	}
+		
+		45%			{ opacity: 1; left: 18px;	}
+		47%			{ opacity: 0; left: 18px;	}
+		48%			{ opacity: 0; left: 36px;	}
+		50%			{ opacity: 1; left: 36px;	}
+		
+		70%			{ opacity: 1; left: 36px;	}
+		72%			{ opacity: 0; left: 36px;	}
+		73%			{ opacity: 0; left: 54px;	}
+		75%			{ opacity: 1; left: 54px;	}
+		
+		95%			{ opacity: 1; left: 54px;	}
+		97%			{ opacity: 0; left: 54px;	}
+		98%			{ opacity: 0; left: 0;	}
+	}
+	@keyframes dotser {
+		0%, 100% 	{ opacity: 1; left: 0; 		}
+		
+		20%			{ opacity: 1; left: 0;		}
+		22%			{ opacity: 0; left: 0;		}
+		23%			{ opacity: 0; left: 18px;	}
+		25%			{ opacity: 1; left: 18px;	}
+		
+		45%			{ opacity: 1; left: 18px;	}
+		47%			{ opacity: 0; left: 18px;	}
+		48%			{ opacity: 0; left: 36px;	}
+		50%			{ opacity: 1; left: 36px;	}
+		
+		70%			{ opacity: 1; left: 36px;	}
+		72%			{ opacity: 0; left: 36px;	}
+		73%			{ opacity: 0; left: 54px;	}
+		75%			{ opacity: 1; left: 54px;	}
+		
+		95%			{ opacity: 1; left: 54px;	}
+		97%			{ opacity: 0; left: 54px;	}
+		98%			{ opacity: 0; left: 0;	}
+	}
+	.dots_commands li:first-child a:after,
+	.dots_commands li:first-child a:before {
+		position: absolute;
+		top: 0; left: 0;
+		content: " ";
+		width: 8px; height: 8px;
+		background: #bd9b83;
+		z-index:20;
+
+		border-radius: 50%;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.55) inset;
+	}
+	.dots_commands li:first-child a:after {
+		-moz-animation: dotser 32s infinite;
+		animation: dotser 32s infinite;
+	}
+	.dots_commands li:first-child a:before { display:none; }
+	
+
+	.ad {
+		margin-top: 8em;
+		padding: 10px;
+		height: 125px;
+		text-align: center;
+	}
+	.ad ins {
+		margin: 0 2em;
+	}	
+
